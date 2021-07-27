@@ -11,10 +11,18 @@ function jugar() {
     arrayDeCartas = [];
     cargarCartasEnArray(arrayDeCartas);
     mezclarCartas(arrayDeCartas);
-    mostrarCartas(arrayDeCartas);
+    jugarTurno();
+}
+
+function jugarTurno() {
+    
+    activarInput();
+
 }
 
 function resetear() {
+    arrayDeCartas = [];
+    bloquearInput();
     ocultarCartas();
 }
 
@@ -38,9 +46,26 @@ function mezclarCartas(arrayDeCartas) {
     }
 }
 
+function activarInput() {
+    const $cartas = document.querySelectorAll('.carta');
+    $cartas.forEach(carta => {carta.onclick = mostrarCarta});
+}
+
+function bloquearInput() {
+    const $cartas = document.querySelectorAll('.carta');
+    $cartas.forEach(carta => {carta.onclick = function(){console.log('Input bloqueado!')}})
+}
+
+function mostrarCarta(e) {
+    let carta = e.target;
+    let numeroDeCarta = Number(carta.id);
+    carta.src = arrayDeCartas[numeroDeCarta]["ruta"];
+    return carta;
+}
+
 function ocultarCartas() {
     for (let i = 0; i < CANTIDAD_CARTAS; i++) {
-        let carta = document.querySelector(`#carta-${i}`);
+        let carta = document.getElementById(`${i}`);
         carta.src = "imagenes/reverso.png";
     }
 }
