@@ -63,9 +63,20 @@ function mostrarCarta(e) {
     return carta;
 }
 
+
 function ocultarCartas() {
     for (let i = 0; i < CANTIDAD_CARTAS; i++) {
         let carta = document.getElementById(`${i}`);
         carta.src = "imagenes/reverso.png";
     }
+}
+
+function desactivarBoton(idBoton) {
+    let boton = document.getElementById(idBoton);
+    boton.setAttribute('disabled', '');
+}
+
+function activarBoton(idBoton) {
+    let boton = document.getElementById(idBoton);
+    boton.removeAttribute('disabled');
 }
