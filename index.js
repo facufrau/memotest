@@ -8,20 +8,17 @@ $botonJugar.onclick = jugar;
 $botonResetear.onclick = resetear;
 
 function jugar() {
+    desactivarBoton('jugar');
     arrayDeCartas = [];
     cargarCartasEnArray(arrayDeCartas);
     mezclarCartas(arrayDeCartas);
-    jugarTurno();
+    manejarTurno(arrayDeCartas);
 }
 
-function jugarTurno() {
-    
-    activarInput();
-
-}
 
 function resetear() {
     arrayDeCartas = [];
+    activarBoton('jugar');
     bloquearInput();
     ocultarCartas();
 }
@@ -46,21 +43,37 @@ function mezclarCartas(arrayDeCartas) {
     }
 }
 
-function activarInput() {
+function manejarTurno(arrayDeCartas) {
+    let cartasElegidas = [];
     const $cartas = document.querySelectorAll('.carta');
-    $cartas.forEach(carta => {carta.onclick = mostrarCarta});
+    $cartas.forEach(carta => carta.onclick = function(e) {
+        manejarInput(e, cartasElegidas);
+    });
 }
 
 function bloquearInput() {
     const $cartas = document.querySelectorAll('.carta');
-    $cartas.forEach(carta => {carta.onclick = function(){console.log('Input bloqueado!')}})
+    $cartas.forEach(carta => carta.onclick = function(){console.log('Input bloqueado!')})
 }
 
-function mostrarCarta(e) {
+function manejarInput(e, cartasElegidas) {
     let carta = e.target;
     let numeroDeCarta = Number(carta.id);
     carta.src = arrayDeCartas[numeroDeCarta]["ruta"];
-    return carta;
+    cartasElegidas.push(numeroDeCarta);
+
+    if (cartasElegidas.length === 2) {
+        console.log(cartasElegidas);
+        let primera = cartasElegidas[0]
+        let segunda = cartasElegidas[1];
+        if (arrayDeCartas[primera]['tipo'] === arrayDeCartas[segunda]['tipo']) {
+            console.log('correctito');
+            bloquearInput();
+        }
+        cartasElegidas = [];
+        ocultarCartas();
+    }
+
 }
 
 
