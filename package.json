@@ -1,0 +1,22 @@
+{
+  "name": "memotest",
+  "version": "1.0.0",
+  "description": "Juego de memoria para clase 11 de /r/argentinaprograma",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/facufrau/memotest.git"
+  },
+  "author": "facufrau",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/facufrau/memotest/issues"
+  },
+  "homepage": "https://github.com/facufrau/memotest#readme",
+  "dependencies": {
+    "bootstrap": "^5.0.2"
+  }
+}
