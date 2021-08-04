@@ -1,6 +1,7 @@
+const CANTIDAD_CARTAS = 20;
+const CANTIDAD_IMAGENES = 10;
 const $botonJugar = document.querySelector("#jugar");
 const $botonResetear = document.querySelector("#reiniciar");
-const CANTIDAD_CARTAS = 20;
 const $cantidadIntentos = document.querySelector("#intentos");
 const $tiempo = document.querySelector("#tiempo");
 
@@ -24,13 +25,11 @@ function resetear() {
 }
 
 function cargarCartasEnArray(arrayDeCartas) {
-    for (let i = 0; i < CANTIDAD_CARTAS / 2; i++ ){
-        let cartaOperacion = {"tipo": i, "ruta": `imagenes/operaciones/${i}.png`};
+    for (let i = 1; i <= CANTIDAD_IMAGENES; i++ ){
+        let cartaOperacion = {"id": i, "ruta": `imagenes/${i}.png`};
         arrayDeCartas.push(cartaOperacion);
-
-        let cartaRespuesta = {"tipo": i, "ruta": `imagenes/respuestas/${i}.png`};
-        arrayDeCartas.push(cartaRespuesta);
     }
+    arrayDeCartas = arrayDeCartas.concat(arrayDeCartas);
 }
 
 function mezclarCartas(arrayDeCartas) {
@@ -61,19 +60,6 @@ function manejarInput(e, cartasElegidas) {
     let numeroDeCarta = Number(carta.id);
     carta.src = arrayDeCartas[numeroDeCarta]["ruta"];
     cartasElegidas.push(numeroDeCarta);
-
-    if (cartasElegidas.length === 2) {
-        console.log(cartasElegidas);
-        let primera = cartasElegidas[0]
-        let segunda = cartasElegidas[1];
-        if (arrayDeCartas[primera]['tipo'] === arrayDeCartas[segunda]['tipo']) {
-            console.log('correctito');
-            bloquearInput();
-        }
-        cartasElegidas = [];
-        ocultarCartas();
-    }
-
 }
 
 
