@@ -5,6 +5,7 @@ const $botonResetear = document.querySelector("#reiniciar");
 const $ganar = document.querySelector("#ganar");
 const $cantidadIntentos = document.querySelector("#intentos");
 const $tiempo = document.querySelector("#tiempo");
+const $cartas = document.querySelectorAll(".carta");
 
 $botonJugar.onclick = jugar;
 $botonResetear.onclick = resetear;
@@ -39,12 +40,10 @@ function mezclarCartas(arrayDeCartas) {
 }
 
 function manejarTurno() {
-    const $cartas = document.querySelectorAll('.carta');
     $cartas.forEach(carta => carta.onclick = mostrarCarta);
 }
 
 function bloquearInput() {
-    const $cartas = document.querySelectorAll('.carta');
     $cartas.forEach(carta => carta.onclick = function(){console.log('Input bloqueado!')})
 }
 
@@ -62,8 +61,6 @@ function mostrarCarta(e) {
 }
 
 function comprobarIgualdad() {
-    const $cartas = document.querySelectorAll(".carta");
-
     const primerCarta = cartas[cartasElegidas[0]]["id"];
     const segundaCarta = cartas[cartasElegidas[1]]["id"];
 
