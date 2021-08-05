@@ -1,35 +1,31 @@
 const CANTIDAD_CARTAS = 20;
-const CANTIDAD_IMAGENES = 10;
+const TOTAL_PARES = 10;
 const $botonJugar = document.querySelector("#jugar");
 const $botonResetear = document.querySelector("#reiniciar");
+const $ganar = document.querySelector("#ganar");
 const $cantidadIntentos = document.querySelector("#intentos");
 const $tiempo = document.querySelector("#tiempo");
 
 $botonJugar.onclick = jugar;
 $botonResetear.onclick = resetear;
 
+let cartasElegidas = [];
+let cartasAcertadas = [];
+let intentos = 0;
+
 function jugar() {
     desactivarBoton('jugar');
-    arrayDeCartas = [];
-    cargarCartasEnArray(arrayDeCartas);
-    mezclarCartas(arrayDeCartas);
-    manejarTurno(arrayDeCartas);
+    mezclarCartas(cartas);
+    manejarTurno(cartas);
 }
 
-
 function resetear() {
-    arrayDeCartas = [];
     activarBoton('jugar');
     bloquearInput();
     ocultarCartas();
-}
-
-function cargarCartasEnArray(arrayDeCartas) {
-    for (let i = 1; i <= CANTIDAD_IMAGENES; i++ ){
-        let cartaOperacion = {"id": i, "ruta": `imagenes/${i}.png`};
-        arrayDeCartas.push(cartaOperacion);
-    }
-    arrayDeCartas = arrayDeCartas.concat(arrayDeCartas);
+    intentos = 0;
+    $cantidadIntentos.innerText = "-"
+    $ganar.classList.add("oculto");
 }
 
 function mezclarCartas(arrayDeCartas) {
@@ -42,12 +38,9 @@ function mezclarCartas(arrayDeCartas) {
     }
 }
 
-function manejarTurno(arrayDeCartas) {
-    let cartasElegidas = [];
+function manejarTurno() {
     const $cartas = document.querySelectorAll('.carta');
-    $cartas.forEach(carta => carta.onclick = function(e) {
-        manejarInput(e, cartasElegidas);
-    });
+    $cartas.forEach(carta => carta.onclick = mostrarCarta);
 }
 
 function bloquearInput() {
@@ -55,13 +48,37 @@ function bloquearInput() {
     $cartas.forEach(carta => carta.onclick = function(){console.log('Input bloqueado!')})
 }
 
-function manejarInput(e, cartasElegidas) {
+function mostrarCarta(e) {
     let carta = e.target;
     let numeroDeCarta = Number(carta.id);
-    carta.src = arrayDeCartas[numeroDeCarta]["ruta"];
+    carta.src = cartas[numeroDeCarta]["ruta"];
     cartasElegidas.push(numeroDeCarta);
+    if (cartasElegidas.length === 2) {
+        setTimeout(comprobarIgualdad, 600);
+        intentos++;
+        $cantidadIntentos.innerText = intentos;
+    }
 }
 
+    const $cartas = document.querySelectorAll(".carta");
+
+    const primerCarta = cartas[cartasElegidas[0]]["id"];
+    const segundaCarta = cartas[cartasElegidas[1]]["id"];
+
+    if (primerCarta === segundaCarta) {
+        cartasAcertadas.push(primerCarta);
+        $cartas[cartasElegidas[0]].setAttribute("src", "imagenes/ok.png");
+        $cartas[cartasElegidas[1]].setAttribute("src", "imagenes/ok.png" );
+    }
+    else {
+        $cartas[cartasElegidas[0]].setAttribute("src", "imagenes/reverso.png");
+        $cartas[cartasElegidas[1]].setAttribute("src", "imagenes/reverso.png" );
+    }
+    cartasElegidas = [];
+    if (cartasAcertadas.length === TOTAL_PARES) {
+        ganar();
+    }
+}
 
 function ocultarCartas() {
     for (let i = 0; i < CANTIDAD_CARTAS; i++) {
