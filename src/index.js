@@ -60,6 +60,7 @@ function mostrarCarta(e) {
     }
 }
 
+function comprobarIgualdad() {
     const $cartas = document.querySelectorAll(".carta");
 
     const primerCarta = cartas[cartasElegidas[0]]["id"];
@@ -95,4 +96,11 @@ function desactivarBoton(idBoton) {
 function activarBoton(idBoton) {
     let boton = document.getElementById(idBoton);
     boton.removeAttribute('disabled');
+}
+
+function ganar() {
+    bloquearInput();
+    $ganar.classList.remove("oculto");
+    $ganar.innerText = `¡Ganaste el juego en ${intentos} intentos!`;
+    cartasAcertadas = [];
 }
