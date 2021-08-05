@@ -54,6 +54,7 @@ function mostrarCarta(e) {
     carta.src = cartas[numeroDeCarta]["ruta"];
     cartasElegidas.push(numeroDeCarta);
     if (cartasElegidas.length === 2) {
+        bloquearInput();
         setTimeout(comprobarIgualdad, 600);
         intentos++;
         $cantidadIntentos.innerText = intentos;
@@ -78,6 +79,9 @@ function comprobarIgualdad() {
     cartasElegidas = [];
     if (cartasAcertadas.length === TOTAL_PARES) {
         ganar();
+    }
+    else {
+        manejarTurno();
     }
 }
 
