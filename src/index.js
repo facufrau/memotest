@@ -27,6 +27,7 @@ function resetear() {
     intentos = 0;
     $cantidadIntentos.innerText = "-"
     $ganar.classList.add("oculto");
+    $cartas.forEach(carta => carta.classList.remove('bien'));
 }
 
 function mezclarCartas(arrayDeCartas) {
@@ -65,9 +66,18 @@ function comprobarIgualdad() {
     const segundaCarta = cartas[cartasElegidas[1]]["id"];
 
     if (primerCarta === segundaCarta) {
-        cartasAcertadas.push(primerCarta);
-        $cartas[cartasElegidas[0]].setAttribute("src", "imagenes/ok.png");
-        $cartas[cartasElegidas[1]].setAttribute("src", "imagenes/ok.png" );
+        if ($cartas[cartasElegidas[0]] === $cartas[cartasElegidas[1]]) {
+            alert('Elegiste 2 veces la misma carta...');
+            $cartas[cartasElegidas[0]].setAttribute("src", "imagenes/reverso.png");
+        }
+        else {
+            cartasAcertadas.push(primerCarta);
+            $cartas[cartasElegidas[0]].setAttribute("src", "imagenes/ok.png");
+            $cartas[cartasElegidas[1]].setAttribute("src", "imagenes/ok.png" );
+    
+            $cartas[cartasElegidas[0]].classList.add('bien');
+            $cartas[cartasElegidas[1]].classList.add('bien');
+        }
     }
     else {
         $cartas[cartasElegidas[0]].setAttribute("src", "imagenes/reverso.png");
