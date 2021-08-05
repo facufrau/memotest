@@ -51,13 +51,17 @@ function bloquearInput() {
 function mostrarCarta(e) {
     let carta = e.target;
     let numeroDeCarta = Number(carta.id);
-    carta.src = cartas[numeroDeCarta]["ruta"];
-    cartasElegidas.push(numeroDeCarta);
-    if (cartasElegidas.length === 2) {
-        bloquearInput();
-        setTimeout(comprobarIgualdad, 600);
-        intentos++;
-        $cantidadIntentos.innerText = intentos;
+
+    if (!carta.classList.contains('bien')) {
+        carta.src = cartas[numeroDeCarta]["ruta"];
+        cartasElegidas.push(numeroDeCarta);
+
+        if (cartasElegidas.length === 2) {
+            bloquearInput();
+            setTimeout(comprobarIgualdad, 600);
+            intentos++;
+            $cantidadIntentos.innerText = intentos;
+        }
     }
 }
 
