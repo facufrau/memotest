@@ -52,11 +52,12 @@ function mostrarCarta(e) {
 
     if (!carta.classList.contains('bien')) {
         carta.src = cartas[numeroDeCarta]["ruta"];
+        animarCarta(carta);
         cartasElegidas.push(numeroDeCarta);
 
         if (cartasElegidas.length === 2) {
             bloquearInput();
-            setTimeout(comprobarIgualdad, 600);
+            setTimeout(comprobarIgualdad, 1500);
             intentos++;
             $cantidadIntentos.innerText = intentos;
         }
@@ -119,4 +120,9 @@ function ganar() {
     $mensajeGanador.classList.remove("oculto");
     $mensajeGanador.innerText = `¡Ganaste el juego en ${intentos} intentos!`;
     cartasAcertadas = [];
+}
+
+function animarCarta(elemento) {
+    elemento.style.scale = 1.20;
+    setTimeout(function(){elemento.style.scale = 1}, 400);
 }

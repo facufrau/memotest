@@ -6,3 +6,6 @@
     margin: 5px;
 }
 
+.carta {
+    transition: scale 500ms;
+}
