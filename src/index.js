@@ -4,7 +4,6 @@ const $mensajeGanador = document.querySelector("#mensajeGanador");
 const $cantidadIntentos = document.querySelector("#intentos");
 const $tiempo = document.querySelector("#tiempo");
 const $cartas = document.querySelectorAll(".carta");
-const $tablero = document.querySelector("#tablero");
 
 $botonJugar.onclick = jugar;
 $botonResetear.onclick = resetear;
@@ -12,11 +11,15 @@ $botonResetear.onclick = resetear;
 let cartasElegidas = [];
 let cartasAcertadas = [];
 let intentos = 0;
+let contadorSegundos = 0
+let idContadorTiempo;
 
 function jugar() {
     desactivarBoton('jugar');
     mezclarCartas(cartas);
     manejarTurno(cartas);
+    $tiempo.innerText = contadorSegundos;
+    idContadorTiempo = setInterval(aumentarTiempo, 1000);
 }
 
 function resetear() {
@@ -24,7 +27,10 @@ function resetear() {
     bloquearInput();
     ocultarTodasCartas();
     intentos = 0;
-    $cantidadIntentos.innerText = "-"
+    $cantidadIntentos.innerText = "-";
+    $tiempo.innerText = "-";
+    contadorSegundos = 0;
+    clearInterval(idContadorTiempo);
     $mensajeGanador.classList.add("oculto");
     $cartas.forEach(carta => carta.classList.remove('bien'));
 }
@@ -40,29 +46,27 @@ function mezclarCartas(arrayDeCartas) {
 }
 
 function manejarTurno() {
-    $tablero.onclick = mostrarCarta;
+    $cartas.forEach(carta => carta.onclick = mostrarCarta);
 }
 
 function bloquearInput() {
-    $tablero.onclick = function(){};
+    $cartas.forEach(carta => carta.onclick = function(){console.log('Input bloqueado!')})
 }
 
 function mostrarCarta(e) {
-    if (e.target.classList.contains('carta')) { 
-        let carta = e.target;
-        let numeroDeCarta = Number(carta.id);
+    let carta = e.target;
+    let numeroDeCarta = Number(carta.id);
 
-        if (!carta.classList.contains('bien')) {
-            carta.src = cartas[numeroDeCarta]["ruta"];
-            animarCarta(carta);
-            cartasElegidas.push(numeroDeCarta);
+    if (!carta.classList.contains('bien')) {
+        carta.src = cartas[numeroDeCarta]["ruta"];
+        animarCarta(carta);
+        cartasElegidas.push(numeroDeCarta);
 
-            if (cartasElegidas.length === 2) {
-                bloquearInput();
-                setTimeout(comprobarIgualdad, 1500);
-                intentos++;
-                $cantidadIntentos.innerText = intentos;
-            }
+        if (cartasElegidas.length === 2) {
+            bloquearInput();
+            setTimeout(comprobarIgualdad, 1500);
+            intentos++;
+            $cantidadIntentos.innerText = intentos;
         }
     }
 }
@@ -122,10 +126,16 @@ function ganar() {
     bloquearInput();
     $mensajeGanador.classList.remove("oculto");
     $mensajeGanador.innerText = `¡Ganaste el juego en ${intentos} intentos!`;
+    clearInterval(idContadorTiempo);
     cartasAcertadas = [];
 }
 
 function animarCarta(elemento) {
     elemento.style.scale = 1.20;
-    setTimeout(function(){elemento.style.scale = 1}, 400);
+    setTimeout(function(){elemento.style.scale = 1}, 300);
+}
+
+function aumentarTiempo() {
+    $tiempo.innerText = contadorSegundos;
+    contadorSegundos++;
 }
