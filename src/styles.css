@@ -1,3 +1,47 @@
+body {
+    color: #1E042E;
+    background-color: #E9FFF6;
+    margin: 0;
+    padding: 2vh;
+}
+
+.grilla {
+    box-sizing: border-box;
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(10, 1fr);
+    margin: 0 auto;
+    max-width: 100 rem;
+    width: 100%;
+    padding: 1vh;
+    align-items: center;
+    text-align: center;
+}
+
+.contenedor {
+    grid-column-end: span 5;
+}
+
+.botones .contenedor {
+    width: 300px;
+    margin: auto;
+}
+
+#jugar, #reiniciar {
+    min-width: 3rem;
+    width: 7rem;
+}
+.titulo {
+    font-size: 4rem;
+    font-weight: 500;
+    margin-block-end: 1rem;
+}
+
+.subtitulo {
+    font-size: 2rem;
+    font-weight: 300;
+}
+
 .oculto {
     display: none;
 
@@ -7,5 +51,5 @@
 }
 
 .carta {
-    transition: scale 500ms;
+    transition: scale 300ms;
 }
