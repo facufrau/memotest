@@ -5,34 +5,31 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Memotest - Clase 11</title>
-  <!--
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
-  -->
-    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="src/styles.css">
 </head>
 
 <body>
-  <div class="container-fluid" id="encabezados">
-    <div class="row">
-      <h3>Memotest</h3> 
+  <section class="encabezados">
+    <div class="grilla">
+        <div class="contenedor">
+          <h1 class="titulo">Memotest</h1>
+          <h2 class="subtitulo">Juego de memoria con tablas matemáticas</h2>
+          <p>Tiempo: <strong id="tiempo">-</strong> seg.</p>
+          <p>Intentos: <strong id="intentos">-</strong></p>
+          <h4 class="alert alert-success oculto" id="mensajeGanador"></h4>
+        </div>
     </div>
-    <div class="row">
-      <div class="col-2">
-        <button type="button" id="jugar" class="btn btn-primary">Jugar</button>
+  </section>
+
+  <section class="botones">
+    <div class="grilla">
+      <div class="contenedor">
+        <button type="button" id="jugar" class="btn btn-primary">Comenzar!</button>
         <button type="button" id="reiniciar" class="btn btn-danger">Reiniciar</button>
       </div>
-      <div class="col-2">
-        <p>Tiempo: <strong id="tiempo">-</strong></p>
-      </div>
-      <div class="col-2">
-        <p>Intentos: <strong id="intentos">-</strong></p>
-      </div> 
     </div>
-    <div class="row">
-      <h4 class="alert alert-success oculto" id="mensajeGanador"></h4>
-    </div>
-  </div>
+  </section>
   
   <div id="tablero">
     <div class="container-fluid h-100">
